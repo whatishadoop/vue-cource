@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <!--下面注释内容是使用编程式导航进行事件处理的，与roouter.js相关-->
     <!-- <b>{{ food }}</b>
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转到parent</button>
@@ -69,15 +70,18 @@ export default {
       'logout'
     ]),
     handleClick (type) {
-      if (type === 'back') this.$router.back()
-      else if (type === 'push') {
-        this.$router.push({
+      if (type === 'back') this.$router.back()  // 根据历史记录回退到上一页
+      else if (type === 'push') {  // 跳转到指定页，并把当前页加入历史记录中
+        this.$router.push({    // 通过路由命名方式跳转，并传入参数，也可以直接写路径方式
           name: `argu`,
-          params: {
+          params: {   // 传递url argu/lison 或者通过 const name = 'list'结合es6模板设置path path=`argu/${name}`
             name: 'lison'
           }
+          //query: {   // 跳转浏览器地址栏问号？后带上该参数
+            //name: 'parent'
+          //}
         })
-      } else if (type === 'replace') {
+      } else if (type === 'replace') {  // 替代当前页B，A->B->C ,此时由B跳转到C,则回退时直接到A,而不是B
         this.$router.replace({
           name: 'parent'
         })

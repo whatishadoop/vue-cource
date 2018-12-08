@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <!-- <div id="nav">
-      <router-link :to="{ name: 'home' }">Home</router-link> |
+      <router-link :to="{ name: 'home' }">Home</router-link> |  // 通过路由别名，以对象方式跳转等价于路径方式
       <router-link :to="{ name: 'about' }">About</router-link>
     </div> -->
     <!-- <transition-group :name="routerTransition"> -->
     <router-view key="default"/>
-    <router-view key="email" name="email"/>
+    <router-view key="email" name="email"/>     <!--设置命名视图,用于显示不同内容，需要结合路由定义使用-->
     <router-view key="tel" name="tel"/>
     <!-- </transition-group> -->
   </div>

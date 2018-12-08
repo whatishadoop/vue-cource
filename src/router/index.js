@@ -4,9 +4,9 @@ import { routes } from './router'
 import store from '@/store'
 import { setTitle, setToken, getToken } from '@/lib/util'
 
-Vue.use(Router)
+Vue.use(Router)  // 注册路由相关组件 ，使用其标签 如<router-link>等
 
-const router = new Router({
+const router = new Router({  // 创建路由实例，在每个组件实例中通过this.$router调用其js api方法处理
   routes
 })
 

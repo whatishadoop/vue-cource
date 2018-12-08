@@ -2,8 +2,9 @@ import Home from '@/views/Home.vue'
 import Layout from '@/views/layout.vue'
 export const routerMap = [
   {
-    path: '/home',
-    name: 'home',
+    path: '/home',          // 普通路径方式
+    name: 'home',           // 命名路由方式
+    alias: '/home_page',    // 路由别名方式
     component: Layout,
     meta: {
       title: '首页'
@@ -21,10 +22,11 @@ export const routerMap = [
   },
   {
     path: '/about',
-    name: 'about',
+    name: 'about',    // 通过路由别名
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
+    // 按需加载路由组件 生成 about.[hash].js ，下面是匿名函数
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
     props: {
       food: 'banana'
@@ -98,7 +100,7 @@ export const routerMap = [
         component: () => import('@/views/folder-tree/folder-tree.vue')
       },
       {
-        path: 'params/:id',
+        path: 'params/:id',  // 动态传参数路由 ，一般在vue单文件中通过 {{$router.parma.id}}获取参数
         name: 'params',
         meta: {
           title: '参数'
@@ -143,24 +145,24 @@ export const routerMap = [
     ]
   },
   {
-    path: '/named_view',
+    path: '/named_view',  // 一个路径下，加载下面三个组件替换对应页面中的router-view
     name: 'named_view',
     meta: {
       title: 'named_view'
     },
-    components: {
-      default: () => import('@/views/child.vue'),
+    components: {    // 命名路由设置components ，前缀 default email tel分别在<router-view key="email" name="email"/> 标签中定义
+      default: () => import('@/views/child.vue'),  // 缺省
       email: () => import('@/views/email.vue'),
       tel: () => import('@/views/tel.vue')
     }
   },
   {
-    path: '/main',
+    path: '/main',   // 访问main时重定向到 / 路径
     name: 'main',
     meta: {
       title: 'main'
     },
-    redirect: to => '/'
+    redirect: to => '/' // 可以设置{ return '跳转路径' } ,打印传入的to对象参数，通过参数跳转不同路径，
   },
   {
     path: '/store',
