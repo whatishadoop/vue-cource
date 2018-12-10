@@ -5,9 +5,12 @@
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转到parent</button>
     <button @click="handleClick('replace')">替换到parent</button>
-    <button @click="getInfo" :style="{ background: bgColor }">请求数据</button>
     <img :src="url">
     <button @click="handleLogout">退出登录</button> -->
+    <!--请求数据-->
+    <!--
+    <button @click="getInfo" :style="{ background: bgColor }">请求数据</button>
+    -->
     <Row>
       <i-col></i-col>
     </Row>
@@ -54,15 +57,22 @@ export default {
       rules: state => state.user.rules
     })
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  // 组件内守卫三个钩子函数beforeRouteEnter，beforeRouteUpdate，beforeRouteLeave，form上个路由，to下个路由对象
+  beforeRouteEnter (to, from, next) { // 此时跳转的新页面还没有被渲染，里面是不能通过this获取当前组件实例
+    next(vm => {  // 若一定要获取组件this实例，通过这种方式，这个next回调函数在最后执行
       // console.log(vm)
     })
   },
-  beforeRouteLeave (to, from, next) {
+  // beforeRouteUpdate (to, from, next) {
+  //   // 在当前路由改变，但是该组件被复用时调用，说白了在当前页实现参数传递
+  //   // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+  //   // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+  //   // 可以访问组件实例 `this`，因为被渲染了
+  // },
+  beforeRouteLeave (to, from, next) {   // 该方法在离开当前页面时，触发，例如跳转前确认信息保存
     // const leave = confirm('您确定要离开吗？')
     // if (leave) next()
-    // else next(false)
+    // else next(false)   // false表示不进行跳转，在该函数中是可以使用this的，因为被渲染了
     next()
   },
   methods: {

@@ -1,12 +1,17 @@
 import Home from '@/views/Home.vue'
 import Layout from '@/views/layout.vue'
-export const routerMap = [
+export const routerMap = [  // 路由优先级按从上到下顺序，从最高到最低进行匹配，同名的路径先执行最上面的
   {
     path: '/home',          // 普通路径方式
     name: 'home',           // 命名路由方式
     alias: '/home_page',    // 路由别名方式
+    // beforeEach: (to,from,next) => {  // 路由独享守卫，在局部路由中定义
+         // 这里做些逻辑处理,最后定义要调用next() 函数否则页面不会跳转
+         //if (from.name === 'login') alert('111');
+         // next();
+    //}
     component: Layout,
-    meta: {
+    meta: {  // 传递路由元数据信息
       title: '首页'
     },
     children: [
@@ -28,7 +33,7 @@ export const routerMap = [
     // which is lazy-loaded when the route is visited.
     // 按需加载路由组件 生成 about.[hash].js ，下面是匿名函数
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
-    props: {
+    props: {   // 对象模式: 动态路由也可以直接传参数，组件通过props接收
       food: 'banana'
     },
     meta: {
@@ -106,7 +111,7 @@ export const routerMap = [
           title: '参数'
         },
         component: () => import('@/views/argu.vue'),
-        props: true
+        props: true    // 布尔模式:路由动态传参，将上面的传递的 :id参数 作为组件的传递属性，组件通过props直接获取，替代通过$router.parmas.id方式
       }
     ]
   },
@@ -192,7 +197,7 @@ export const routes = [
     component: () => import('@/views/icon_page.vue')
   },
   {
-    path: '*',
+    path: '*',  // 若所有路径都匹配不到直接返回404页面，考虑到路由优先级从高到第一般放在最后
     component: () => import('@/views/error_404.vue')
   }
 ]

@@ -11,7 +11,7 @@ export default {
     }
   },
   mounted () {
-    this.$bus.$on('on-click', mes => {
+    this.$bus.$on('on-click', mes => {  // 通过bus方式实现与自组件email之间的通信
       this.message = mes
     })
   }

@@ -19,8 +19,9 @@ const mutations = {
   }
 }
 const actions = {
-  updateUserName ({ commit, state, rootState, dispatch }) {
+  updateUserName ({ commit, state, rootState, dispatch }) {  // commit，state当前文件中的state对象， rootState为在state.js中定义的根state
     // rootState.appName
+    // dispatch('xxx'.'xxx') 继续调用action方法
   },
   login ({ commit }, { userName, password }) {
     return new Promise((resolve, reject) => {
@@ -61,7 +62,7 @@ export default {
   state,
   mutations,
   actions,
-  modules: {
+  modules: {  // 子模块中还可以继续引用其他模块，另外模块可以指定namespace : true ,这样在vue页面调用时，通过...mapMutations( 'user1/user2',[]) 方式调用,避免其他模块对其产生污染
     //
   }
 }

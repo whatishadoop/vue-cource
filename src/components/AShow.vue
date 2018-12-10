@@ -7,7 +7,7 @@
 export default {
   props: {
     content: {
-      type: [String, Number],
+      type: [String, Number],  // 参数可以是多个类型
       default: ''
     }
   }

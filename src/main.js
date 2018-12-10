@@ -12,7 +12,7 @@ import IconSvg from '_c/icon-svg'
 if (process.env.NODE_ENV !== 'production') require('./mock')
 
 Vue.config.productionTip = false
-Vue.prototype.$bus = Bus
+Vue.prototype.$bus = Bus  // 通过原型放入注入bus实例对象，这样在vue实例中可以自行获取
 Vue.component('icon-font', IconFont)
 Vue.component('icon-svg', IconSvg)
 Vue.use(iview)
