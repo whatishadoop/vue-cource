@@ -20,8 +20,13 @@ user.js 业务接口访问路径
       userId
     }
 
-b.服务端设置cors方式解决跨域
+b.服务端设置cors方式解决跨域，可以直接访问第三方主机
+axios.post("http://localhost:3000/login",{
+    uname:"Ace",
+    upwd:"1234"
+}).then(data=>{
 
+})
 
 2. 封装axios 用于统一访问使用
 a.在config/index.js配置基础信息：用于存放项目的域名配置url
