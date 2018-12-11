@@ -37,12 +37,12 @@ export default {
       appVersion: state => state.appVersion,
       todoList: state => state.user.todo ? state.user.todo.todoList : [],
     }),
-    stateValue: {
+    stateValue: {   // 计算属性里stateVal是对象不是方法，有set()和get()方法
       get () {
-        return this.$store.state.stateValue
+        return this.$store.state.stateValue  // 从state中获取值
       },
       set (val) {
-        this.SET_STATE_VALUE(val)
+        this.SET_STATE_VALUE(val)  // 同步改变state值
       }
     },
     ...mapGetters([
