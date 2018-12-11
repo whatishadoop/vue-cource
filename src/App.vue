@@ -6,7 +6,9 @@
     </div>
     <transition-group :name="routerTransition">
       <router-view key="default"/>
+      <!--显示按钮-->
       <router-view key="email" name="email"/>
+      <!--显示段落-->
       <router-view key="tel" name="tel"/>
     </transition-group>
   </div>
