@@ -74,3 +74,11 @@
      console.log(to.name)
  }
 ：
+
+4.动画参看App.vue
+//一组路由视图，设置动画效果，必须写key值。然后在css中设置.router-enter/leave-to/active样式。
+<transition-group :name="transitionName">  
+   <router-view key="default"/>   
+   <router-view key="email"/>
+   <router-view key="tel"/>
+</transition-group>
