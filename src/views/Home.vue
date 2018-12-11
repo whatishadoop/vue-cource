@@ -12,9 +12,9 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'home',
+  name: 'home',  //  使用有 name: 'home',表示是命名路由
   components: {
-    HelloWorld
+    HelloWorld // 普通加载页面模块，提前加载
   },
   props: {
     food: {
