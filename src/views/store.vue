@@ -1,14 +1,14 @@
 <template>
   <div>
     <a-input @input="handleInput"/>
-    <p>{{ inputValue }} -> lastLetter is {{ inputValueLastLetter }}</p>
+    <p>普通属性:{{ inputValue }} -> lastLetter is 计算属性:{{ inputValueLastLetter }}</p>
     <!-- <a-show :content="inputValue"/> -->
-    <p>appName: {{ appName }}, appNameWithVersion : {{ appNameWithVersion }}</p>
-    <p>userName : {{ userName }}, firstLetter is : {{ firstLetter }}</p>
-    <button @click="handleChangeAppName">修改appName</button>
+    <p>mapState方式appName: {{ appName }}, mapGetters方式appNameWithVersion : {{ appNameWithVersion }} </p>
+    <p>userName : {{ userName }}, firstLetter is : {{ firstLetter }} 测试</p>
+    <button @click="handleChangeAppName">修改appName,测试commit到mutation</button>
     <p>{{ appVersion }}</p>
-    <button @click="changeUserName">修改用户名</button>
-    <button @click="registerModule">动态注册模块</button>
+    <button @click="changeUserName">修改用户名，测试dispatch到action</button>
+    <button @click="registerModule">以下内容测试动态注册模块</button>
     <p v-for="(li, index) in todoList" :key="index">{{ li }}</p>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
     ...mapState({
       userName: state => state.user.userName,
       appVersion: state => state.appVersion,
-      todoList: state => state.user.todo ? state.user.todo.todoList : []
+      todoList: state => state.user.todo ? state.user.todo.todoList : []  // 动态注册模块有时没注册或者注册后延时导致立马不能取到，设置个默认值[]
     }),
     ...mapGetters([
       'appNameWithVersion',
@@ -81,7 +81,7 @@ export default {
       // this.$store.dispatch('updateAppName', '123')
     },
     registerModule () {
-      this.$store.registerModule(['user', 'todo'], {
+      this.$store.registerModule(['user', 'todo'], {  // 动态向user子模块下注册todo 模块的状态
         state: {
           todoList: [
             '学习mutations',

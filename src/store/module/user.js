@@ -11,10 +11,10 @@ const mutations = {
     state.userName = params
   }
 }
-const actions = {
+const actions = {  // //commit用于提交到mutation,state值当前文件下state,rootState为store/state.js中state
   updateUserName ({ commit, state, rootState, dispatch }) {
     // rootState.appName
-    dispatch('xxx', '')
+    dispatch('xxx', '')  // action可以继续调用其它action方法
   },
   xxx () {
     //
@@ -27,6 +27,6 @@ export default {
   mutations,
   actions,
   modules: {
-    //
+    //  继续添加子模块
   }
 }
