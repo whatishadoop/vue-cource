@@ -32,8 +32,8 @@ export const getUserInfo = (options) => {
     date: Random.date('yyyy-MM-dd'),
     time: Random.time('hh:mm'),
     datetime: Random.datetime('yyyy-MM-dd hh:mm'),
-    now: Random.now('hour', 'yyyy-MM-dd a hh:mm'),
-    img: Random.image('100x200', '#00ff00', '#ffffff', 'png', 'Lison'),
+    now: Random.now('hour', 'yyyy-MM-dd a hh:mm'),  // 单位小时，分钟显示为00
+    img: Random.image('100x200', '#00ff00', '#ffffff', 'png', 'Lison'),  // 指定网站创建图片
     img_base64: Random.dataImage(),
     color: Random.color(),
     cword: Random.cword('玩儿螺丝刀', 2, 5),
@@ -48,8 +48,8 @@ export const getUserInfo = (options) => {
     pick: Random.pick([1, 2, 3, 4]),
     shuffle: Random.shuffle([1, 2, 3, 4]),
     guid: Random.guid(),
-    fruit: Random.fruit(),
-    fruit2: '@fruit'
+    fruit: Random.fruit(),  // 调用在index.js中定义的扩展方法
+    fruit2: '@fruit'  // 通过占位符方式调用上面的fruit() 方法
   }
   return Mock.mock(template)
 }
