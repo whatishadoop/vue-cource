@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--slot具名插槽-->
     <slot name="left"></slot><span ref="number" :class="countClass" :id="eleId"></span><slot name="right"></slot>
   </div>
 </template>
@@ -8,10 +9,10 @@ import CountUp from 'countup'
 export default {
   name: 'CountTo',
   computed: {
-    eleId () {
-      return `count_up_${this._uid}`
+    eleId () {  // 设置计算属性 保证上面的span属性值唯一，因为会引用多次该组件
+      return `count_up_${this._uid}`  // this._uid 是 vue 自带的每个实例有个唯一id
     },
-    countClass () {
+    countClass () {  // 传入样式类名
       return [
         'count-to-number',
         this.className
@@ -20,7 +21,7 @@ export default {
   },
   data () {
     return {
-      counter: {}
+      counter: {}  // 保存counter对象实例，便于后面使用
     }
   },
   props: {
@@ -87,6 +88,17 @@ export default {
       type: String,
       default: '.'
     },
+    // obj: {
+    //   type: Object,    // 对象缺省值定义
+    //   default: () => {
+    //       return {}  // 返回一个空对象定义，放在回调函数中
+    //     }
+    // },
+    // arr: {
+    //   type: Array,  // 空数组缺省值定义
+    //   default: []
+    //   }
+    // },
     className: {
       type: String,
       default: ''
@@ -94,24 +106,25 @@ export default {
   },
   methods: {
     getCount () {
-      return this.$refs.number.innerText
+      return this.$refs.number.innerText  // 在原始html标签中设置ref="number"，获取当前原生标签dom对象,在组件上使用用于获取组件对象
     },
     emitEndEvent () {
       setTimeout(() => {
         this.$nextTick(() => {
-          this.$emit('on-animation-end', Number(this.getCount()))
+          this.$emit('on-animation-end', Number(this.getCount()))  // 向父组件发送事件
         })
       }, this.duration * 1000 + 5)
     }
   },
-  watch: {
+  watch: {  // 监听endVal属性，若发生变化调用下面方法，进行更新操作
     endVal (newVal, oldVal) {
       this.counter.update(newVal)
-      this.emitEndEvent()
+      this.emitEndEvent()  // 调用自己的封装方法
     }
   },
   mounted () {
-    this.$nextTick(() => {
+    this.$nextTick(() => {  // 保证渲染完后再执行
+      // 保存counter对象实例，便于后面使用
       this.counter = new CountUp(this.eleId, this.startVal, this.endVal, this.decimals, this.duration, {
         useEasing: this.useEasing,
         useGrouping: this.useGrouping,
@@ -127,5 +140,5 @@ export default {
 }
 </script>
 <style lang="less">
-@import './count-to.less';
+@import './count-to.less';   /*s在style里面：@import "../index.css"，在script里面：import "../index.css"*/
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--组件中定义endVal属性，传参数时用end-val 方式-->
     <count-to ref="countTo" :end-val="endVal" @on-animation-end="handleEnd">
       <span slot="left">总金额： </span>
       <span slot="right">元</span>
@@ -22,7 +23,7 @@ export default {
   },
   methods: {
     getNumber () {
-      this.$refs.countTo.getCount()
+      this.$refs.countTo.getCount()  // 在组件上使用用于获取组件对象,可以直接调用组件方法
     },
     up () {
       this.endVal += Math.random() * 100
