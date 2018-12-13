@@ -1,0 +1,1 @@
+vue 提倡数据驱动视图，不要用jquery ,js直接操作dom元素进行如样式style设置

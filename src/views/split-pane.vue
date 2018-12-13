@@ -1,5 +1,6 @@
 <template>
   <div class="split-pane-con">
+    <!--若不设置同步，则长条无法移动-->
     <split-pane :value.sync="offset">
       <div slot="left">left</div>
       <div slot="right">right</div>
