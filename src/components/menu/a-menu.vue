@@ -13,7 +13,7 @@ export default {
 <style lang="less">
 .a-menu{
   & *{
-    list-style: none;
+    list-style: none;  /*将mueu组件中的ul.li样式设置为none*/
   }
   ul{
     padding: 0;

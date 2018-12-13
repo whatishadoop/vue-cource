@@ -14,8 +14,10 @@
       </a-submenu>
     </a-menu> -->
     <a-menu>
+      <!--使用模板方式进行循环，:key 是不能在template标签上定义的，只能在下面设置-->
       <template v-for="(item, index) in list">
         <a-menu-item v-if="!item.children" :key="`menu_item_${index}`">{{ item.title }}</a-menu-item>
+        <!--调用子菜单，传入索引号:index="index"，避免子组件与父主键:key索引一样，需要将父的索引传入子作为前缀拼接-->
         <re-submenu v-else :key="`menu_item_${index}`" :parent="item" :index="index"></re-submenu>
       </template>
     </a-menu>
