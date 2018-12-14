@@ -4,7 +4,7 @@
       <Icon :type="parent.icon" />
       {{ parent.title }}
     </template>
-    <template v-for="item in parent.children">
+    <template v-for="item in parent.children">  <!--利用已有组件Submenu 进行扩展-->
         <re-submenu
           v-if="item.children"
           :key="`menu_${item.name}`"
@@ -26,7 +26,7 @@ export default {
   props: {
     parent: {
       type: Object,
-      default: () => ({})
+      default: () => ({})   // 返回一个空对象等价于 {return {}}
     }
   }
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="side-menu-wrapper">
     <slot></slot>
+    <!--v-show用于频繁的切换时使用，降低切换开销，而v-if一般用于一次显示或隐藏-->
+    <!--handleSelect 用于选中菜单唯一name名(menu-item,dropdownitem)触发一些操作如页面跳转等逻辑，传入的参数为name-->
     <Menu v-show="!collapsed" width="auto" theme="dark" @on-select="handleSelect">
       <template v-for="item in list">
         <re-submenu
@@ -45,12 +47,12 @@ export default {
     },
     list: {
       type: Array,
-      default: () => []
+      default: () => []    /* 若是Array,Object则返回回调函数， 这里等价于 ()=> {return []}*/
     }
   },
   methods: {
     handleSelect (name) {
-      console.log(name)
+      console.log(name)  // 传入参数name为我们为menu_item设置的
     },
     handleClick (name) {
       console.log(name)
