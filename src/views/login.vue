@@ -20,7 +20,7 @@ export default {
       'login'
     ]),
     handleSubmit () {
-      this.login({
+      this.login({     // this.login返回的是promise对象，可以保证请求接口完成后才会执行如下跳转页面方法
         userName: this.userName,
         password: this.password
       }).then(() => {

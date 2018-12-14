@@ -28,7 +28,7 @@ class HttpRequest {
         // Spin.show()
       }
       this.queue[url] = true
-      config.headers['Authorization'] = getToken()
+      config.headers['Authorization'] = getToken()   // 请求拦截器设置每次在请求时都会获取token，统一处理
       return config
     }, error => {
       return Promise.reject(error)

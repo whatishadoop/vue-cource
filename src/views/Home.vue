@@ -70,7 +70,7 @@ export default {
         this.bgColor = res.data.color
       })
     },
-    handleLogout () {
+    handleLogout () {  // 退出登陆，就是把token给清除掉即可，然后跳转到登录页
       this.logout()
       this.$router.push({
         name: 'login'
