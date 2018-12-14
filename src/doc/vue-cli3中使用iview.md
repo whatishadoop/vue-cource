@@ -1,5 +1,5 @@
 # Vue-cli3.0中使用iview
-
+安装ivew npm install iview
 ## 1.全局引入
 
 在项目入口文件<code>./main.js</code>中需要配置如下：
@@ -9,7 +9,7 @@ import Vue from 'vue'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
 
-Vue.use(iview)
+Vue.use(iview)  //若已经全局引入，下面再设置babel插件支持按需导入，就会报错显示iview没有定义
 ```
 
 ## 2.按需引入
@@ -34,8 +34,8 @@ module.exports = {
     '@vue/app'
   ],
   'plugins': [['import', {
-    'libraryName': 'iview',
-    'libraryDirectory': 'src/components'
+    'libraryName': 'iview', // 库的名字
+    'libraryDirectory': 'src/components'  // 库的组件所在文件夹
   }]]
 }
 ```

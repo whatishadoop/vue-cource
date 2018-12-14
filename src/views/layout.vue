@@ -59,7 +59,8 @@ export default {
     padding: 10px;
   }
   .page-card{
-    min-height: ~"calc(100vh - 84px)";
+    min-height: ~"calc(100vh - 84px)";  /*vh 相对视窗的高度， vw 相对视窗的宽度，vm相对视窗的高度和宽度，取决于哪个最小
+     让浏览器去计算300px-30px 表示不进行less编译，由浏览器自行解析，此处的min-height表示最小高度，若里面没内容自行撑开最小高度*/
   }
 }
 </style>

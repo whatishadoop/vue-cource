@@ -15,6 +15,7 @@
       <i-col span="12"></i-col>
     </Row>
     <Row :gutter="10" class="blue">
+      <!--下面的i-col根据所在父容器的尺寸像素大小，实现响应变化为占6(4列),12(2列),24(1列)单元格-->
       <i-col :md="6" :sm="12" :xs="24"></i-col>
       <i-col :md="6" :sm="12" :xs="24"></i-col>
       <i-col :md="6" :sm="12" :xs="24"></i-col>
@@ -94,7 +95,7 @@ export default {
 </script>
 <style lang="less">
 .home{
-  .ivu-col{
+  .ivu-col{  /* 给组件定义样式*/
     height: 50px;
     margin-top: 10px;
     background: pink;
