@@ -63,7 +63,7 @@ export default {
     }
   },
   mounted () {
-    this.handleColumns()
+    this.handleColumns()  // 我们不能直接修改父组件传递过来的数据，只能通过事件通知父组件方式进行
   }
 }
 </script>
