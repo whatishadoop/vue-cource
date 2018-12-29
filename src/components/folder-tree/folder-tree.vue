@@ -17,6 +17,7 @@ export default {
         const dropdownRender = dropList.map(item => {
           return (<dropdownItem name={item.name}>{ item.title }</dropdownItem>)
         })
+        // 记录处于重命名状态，此时点击其它菜单的下拉选项无效
         const isRenaming = this.currentRenamingId === `${data.type || 'file'}_${data.id}`
         return (
           <div class="tree-item">
@@ -31,7 +32,7 @@ export default {
                 : <span>{ data.title }</span>
             }
             {
-              dropList && !isRenaming ? <dropdown placement="right-start" on-on-click={this.handleDropdownClick.bind(this, data)}>
+              dropList && !isRenaming ? <dropdown placement="right-start" on-on-click={this.handleDropdownClick.bind(this, data)}>   // 通过bind动态绑定参数，传入方法中
                 <i-button size="small" type="text" class="tree-item-button">
                   <icon type="md-more" size={12}/>
                 </i-button>
@@ -56,7 +57,7 @@ export default {
     },
     folderDrop: Array,
     fileDrop: Array,
-    beforeDelete: Function
+    beforeDelete: Function  // 函数类型
   },
   watch: {
     folderList () {
@@ -79,24 +80,26 @@ export default {
       let updateListName = isFolder ? 'folderList' : 'fileList'
       let list = isFolder ? clonedeep(this.folderList) : clonedeep(this.fileList)
       list = list.filter(item => item.id !== data.id)
-      this.$emit(`update:${updateListName}`, list)
+      this.$emit(`update:${updateListName}`, list)  // $emit(update: xxxx)固定写法，与父组件中sync同步使用，用于子向父传递数据，等价于 $emit(`update:  与 父中设置on监听事件一样
+      // 删除当前目录或文件节点后，继续展开删除节点对应的父节点，由于此时删除后还没渲染完毕，需要放在
+      // nexttick中进行张开处理
       this.$nextTick(() => {
         expandSpecifiedFolder(this.folderTree, folderId)
       })
     },
     handleDropdownClick (data, name) {
       if (name === 'rename') {
-        this.currentRenamingId = `${data.type || 'file'}_${data.id}`
+        this.currentRenamingId = `${data.type || 'file'}_${data.id}`  //  若文件类型若没有值则用file，并且拼接data_id作为文件名选择标识
       } else if (name === 'delete') {
-        this.$Modal.confirm({
+        this.$Modal.confirm({  // 弹出modal对话框，onOk设置确认按钮时使用，
           title: '提示',
           content: `您确定要删除${this.isFolder(data.type) ? '文件夹' : '文件'}《${data.title}》吗？`,
           onOk: () => {
-            this.beforeDelete ? this.beforeDelete().then(() => {
+            this.beforeDelete ? this.beforeDelete().then(() => {  // 此处若存在beforeDelete进行处理向后台发送数据请求，返回promise,成功2秒后才进行删除处理
               this.handleDelete(data)
             }).catch(() => {
-              this.$Message.error('删除失败')
-            }) : this.handleDelete(data)
+              this.$Message.error('删除失败')  // 删除失败提示
+            }) : this.handleDelete(data)  // 若没有传beforeDelete 则直接进行handle处理
           }
         })
       }
@@ -117,7 +120,7 @@ export default {
       }
       return list
     },
-    saveRename (data) {
+    saveRename (data) {   // 保存修改后的folder目录和文件的名称，先clone再发送给父类
       const id = data.id
       const type = data.type
       if (type === 'folder') {
@@ -127,7 +130,7 @@ export default {
         const list = this.updateList(this.fileList, id)
         this.$emit('update:fileList', list)
       }
-      this.currentRenamingId = ''
+      this.currentRenamingId = ''  // 将编辑状态时input隐藏，设置为显示状态
     }
   },
   mounted () {
@@ -145,10 +148,10 @@ export default {
   & > .ivu-dropdown{
     float: right;
   }
-  ul.ivu-dropdown-menu{
+  ul.ivu-dropdown-menu{  /*通过提高选择器的权重来修改iview组件带来的样式影响*/
     padding-left: 0;
   }
-  li.ivu-dropdown-item{
+  li.ivu-dropdown-item{ /*通过提高选择器的权重来修改iview组件带来的样式影响*/
     margin: 0;
     padding: 7px 16px;
   }

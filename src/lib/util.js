@@ -52,24 +52,26 @@ export const transferFolderToTree = folderList => {
   return handle(0)
 }
 
+// 根据传入的folderID 张开对应的节点，
 export const expandSpecifiedFolder = (folderTree, id) => {
   return folderTree.map(item => {
     if (item.type === 'folder') {
       if (item.id === id) {
         item.expand = true
       } else {
+        // 若传入的子目录，则对应的父目录也会被展开
         if (item.children && item.children.length) {
           item.children = expandSpecifiedFolder(item.children, id)
           if (item.children.some(child => {
-            return child.expand === true
+            return child.expand === true  // 展开子目录
           })) {
-            item.expand = true
+            item.expand = true  // 展开父目录
           } else {
             item.expand = false
           }
         }
       }
     }
-    return item
+    return item  // 返回需要设置张开的新数组返回
   })
 }
