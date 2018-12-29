@@ -1,6 +1,8 @@
 <template>
   <div>
+    <!--单编辑模式-->
     <!-- <edit-table :columns="columns" v-model="tableData" @on-edit="handleEdit"></edit-table> -->
+    <!--多编辑模式-->
     <edit-table-mul :columns="columns" v-model="tableData"></edit-table-mul>
   </div>
 </template>

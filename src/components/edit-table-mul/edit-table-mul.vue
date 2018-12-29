@@ -8,7 +8,7 @@ export default {
   name: 'EditTable',
   data () {
     return {
-      insideData: [],
+      insideData: [],       // 保存需要编辑的数据
       insideColumns: [],
       edittingId: '',
       edittingContent: ''
@@ -34,11 +34,12 @@ export default {
   },
   methods: {
     handleClick ({ row, index, column }) {
+      // 若存在编辑对象则进行处理
       let keyIndex = this.insideData[index].edittingKeyArr ? this.insideData[index].edittingKeyArr.indexOf(column.key) : -1
       let rowObj = this.insideData[index]
       if (keyIndex > -1) {
-        rowObj.edittingKeyArr.splice(keyIndex, 1)
-        this.insideData.splice(index, 1, rowObj)
+        rowObj.edittingKeyArr.splice(keyIndex, 1)  //
+        this.insideData.splice(index, 1, rowObj)  // 表示index索引开始，删除一个元素，并在删除位置插入一个新元素等价于替换，这里表示编辑完后就从数据中删除
         this.$emit('input', this.insideData)
         this.$emit('on-edit', { row, index, column, newValue: this.insideData[index][column.key] })
       } else {
@@ -60,7 +61,7 @@ export default {
                 {keyArr && keyArr.indexOf(column.key) > -1
                   ? <i-input value={row[column.key]} style="width: 50px;" on-input={this.handleInput.bind(this, row, index, column)}></i-input>
                   : <span>{row[column.key]}</span>}
-                <i-button on-click={() => { this.handleClick({ row, index, column }) }}>{ keyArr && keyArr.indexOf(column.key) > -1 ? '保存' : '编辑' }</i-button>
+                <i-button on-click={() => { this.handleClick({ row, index, column }) }}>{ keyArr && keyArr.indexOf(column.key) > -1 ? '保存' : '编辑' }</i-button>  // 需要使用i-button替代button
               </div>
             )
           }
