@@ -65,7 +65,7 @@ export default {
       let valueList = {}
       let initValueList = {}
       let errorStore = {}
-      this.list.forEach(item => {
+      this.list.forEach(item => {   // 数据遍历，并赋值给对象
         rules[item.name] = item.rule
         valueList[item.name] = item.value
         initValueList[item.name] = item.value
