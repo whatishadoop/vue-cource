@@ -20,12 +20,12 @@ export default {
   },
   computed: {
     classes () {
-      return [
+      return [    // 多个class样式采用数组返回
         'iconfont',
         `icon-${this.icon}`
       ]
     },
-    styles () {
+    styles () {  // 通过改变style样式，来改变icon样式,以对象形式设置style
       return {
         color: this.color,
         fontSize: `${this.size}px`

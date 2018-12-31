@@ -70,6 +70,7 @@ body{
     }
   }
 }
+/*下面引入iconfont字体图标配置信息*/
 @font-face {font-family: 'iconfont';
     src: url('./assets/font/iconfont.eot');
     src: url('./assets/font/iconfont.eot?#iefix') format('embedded-opentype'),
