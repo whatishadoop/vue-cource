@@ -26,7 +26,7 @@ export default {
         {
           name: 'range',
           type: 'slider',
-          value: [ 10, 40 ],
+          value: [ 10, 40 ],  // slider的范围，通过true设置生效
           range: true,
           label: '范围'
         },
@@ -36,7 +36,7 @@ export default {
           value: '',
           label: '性别',
           children: {
-            type: 'i-option',
+            type: 'i-option',  // 下拉选项
             list: [
               { value: 'man', title: '男' },
               { value: 'woman', title: '女' }
@@ -45,8 +45,8 @@ export default {
         },
         {
           name: 'education',
-          type: 'radio-group',
-          value: 1,
+          type: 'radio-group',  // radio组
+          value: 1,  // 默认选中1
           label: '学历',
           children: {
             type: 'radio',

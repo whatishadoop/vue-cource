@@ -1,22 +1,22 @@
 import Home from '@/views/Home.vue'
 import Layout from '@/views/layout.vue'
 export default [
-  {
-    path: '/',
-    name: 'home',
-    component: Layout,
-    children: [
-      {
-        path: 'home',
-        component: Home
-      }
-    ]
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login.vue')
-  },
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'home',
+  //       component: Home
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: () => import('@/views/login.vue')
+  // },
   {
     path: '/about',
     name: 'about',
@@ -53,12 +53,12 @@ export default [
     component: () => import('@/views/upload.vue')
   },
   {
-    path: '/form',
+    path: '/',
     name: 'form',
     component: () => import('@/views/form.vue')
   },
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: Layout,
     children: [
@@ -69,7 +69,7 @@ export default [
     ]
   },
   {
-    path: '/',
+    path: '/xxx2',
     name: 'table',
     component: Layout,
     children: [

@@ -10,38 +10,6 @@ const router = new Router({
   routes
 })
 
-const HAS_LOGINED = false
-
-router.beforeEach((to, from, next) => {
-  to.meta && setTitle(to.meta.title)
-  // if (to.name !== 'login') {
-  //   if (HAS_LOGINED) next()
-  //   else next({ name: 'login' })
-  // } else {
-  //   if (HAS_LOGINED) next({ name: 'home' })
-  //   else next()
-  // }
-  const token = getToken()
-  if (token) {
-    store.dispatch('authorization', token).then(() => {
-      if (to.name === 'login') next({ name: 'home' })
-      else next()
-    }).catch(() => {
-      setToken('')
-      next({ name: 'login' })
-    })
-  } else {
-    if (to.name === 'login') next()
-    else next({ name: 'login' })
-  }
-})
-
-// router.beforeResolve
-
-router.afterEach((to, from) => {
-  // logining = false
-})
-
 /**
  * 1. 导航被触发
  * 2. 在失活的组件（即将离开的页面组件）里调用离开守卫 beforeRouteLeave
