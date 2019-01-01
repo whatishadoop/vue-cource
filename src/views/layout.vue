@@ -10,7 +10,9 @@
         </Header>
         <Content class="content-con">
           <div>
+            <!--:value="getTabNameByRoute($route)"根据当前路由名字选定对应的tab项，随路由变化而切换选择项-->
             <Tabs type="card" @on-click="handleClickTab" :value="getTabNameByRoute($route)">
+              <!--:label单个tab中文名称，name为英文名称-->
               <TabPane :label="labelRender(item)" :name="getTabNameByRoute(item)" v-for="(item, index) in tabList" :key="`tabNav${index}`"></TabPane>
             </Tabs>
           </div>
@@ -60,15 +62,15 @@ export default {
     handleCollapsed () {
       this.collapsed = !this.collapsed
     },
-    handleClickTab (id) {
+    handleClickTab (id) {  // 点击tab时其内容需要根据其id,得出其路由对象进行跳转，返回对象里面包括路由和参数
       let route = getRouteById(id)
       this.$router.push(route)
     },
     handleTabRemove (id, event) {
       event.stopPropagation()
       this.handleRemove({
-        id,
-        $route: this.$route
+        id,                   // 传入id
+        $route: this.$route  // 传入当前router对象,用于删除后跳转到其它tab页显示
       }).then(nextRoute => {
         this.$router.push(nextRoute)
       })
@@ -107,7 +109,7 @@ export default {
     height: 100%;
     overflow: hidden;
     .ivu-layout-sider-children{
-      margin-right: -20px;
+      margin-right: -20px;  /*用于隐藏滚动条，但依然可以滑动*/
       overflow-y: scroll;
       overflow-x: hidden;
     }

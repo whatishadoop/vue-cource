@@ -30,8 +30,9 @@ export default {
       console.log(row, index, column, newValue)
     },
     turnTo () {
+      // 原始根据路由name对应tab下只能显示相同的内容是一对一的，添加路由参数的作用是为了解决同一个tab下，根据传入的参数不同，进一步扩展显示不同的内容，是一对多的
       let id = 'params' + (Math.random() * 100).toFixed(0)
-      this.$router.push({
+      this.$router.push({    // 在table页测试传递参数，跳转到params路径对应的组件，传递随即生成的值id
         name: 'params',
         params: {
           id

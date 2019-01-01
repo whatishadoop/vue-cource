@@ -98,7 +98,7 @@ export const routerMap = [
         component: () => import('@/views/folder-tree/folder-tree.vue')
       },
       {
-        path: 'params/:id',
+        path: 'params/:id',   // :id 会被argu.vue 页面以props参数形式接收
         name: 'params',
         meta: {
           title: '参数'

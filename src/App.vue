@@ -20,7 +20,7 @@ export default {
       routerTransition: ''
     }
   },
-  watch: {
+  watch: {   // 将点击菜单，新增tab放在这里，若放在layout中进行监听，因为路由切换，导致layout会被重新渲染，原来的layout中watch事件失效
     '$route' (newRoute) {
       this.UPDATE_ROUTER(newRoute)
     }

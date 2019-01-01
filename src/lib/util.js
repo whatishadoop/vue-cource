@@ -91,6 +91,7 @@ export const downloadFile = ({ url, params }) => {
   form.remove()
 }
 
+// 判断两个路由名称以及对应参数是否相同，query,params都是路由传递参数的不同方式
 export const routeEqual = (route1, route2) => {
   const params1 = route1.params || {}
   const params2 = route2.params || {}
@@ -110,7 +111,7 @@ export const routeHasExist = (tabList, routeItem) => {
 
 const getKeyValueArr = obj => {
   let arr = []
-  Object.entries(obj).sort((a, b) => {
+  Object.entries(obj).sort((a, b) => {  // Object.entries(obj)获取param,query对象的键值以数组形式此数组时无序的，进行排序后返回
     return a[0] - b[0]
   }).forEach(([ _key, _val ]) => {
     arr.push(_key, _val)
@@ -118,14 +119,18 @@ const getKeyValueArr = obj => {
   return arr
 }
 
+// 根据name + 参数名来决定不同的tab唯一名称
 export const getTabNameByRoute = route => {
   const { name, params, query } = route
   let res = name
+  // 若路由中传递的是params，按如下拼接
   if (params && Object.keys(params).length) res += ':' + getKeyValueArr(params).join('_')
+  // 若路由中传递的是query，按如下拼接
   if (query && Object.keys(query).length) res += '&' + getKeyValueArr(query).join('_')
   return res
 }
 
+// $a_111_b_222    [a,111,b,222]
 const getObjBySplitStr = (id, splitStr) => {
   let splitArr = id.split(splitStr)
   let str = splitArr[splitArr.length - 1]
@@ -134,12 +139,13 @@ const getObjBySplitStr = (id, splitStr) => {
   let i = 0
   let len = keyValArr.length
   while (i < len) {
-    res[keyValArr[i]] = keyValArr[i + 1]
-    i += 2
+    res[keyValArr[i]] = keyValArr[i + 1]  // 组装对象
+    i += 2  // 加2表示一对对进行遍历
   }
   return res
 }
 
+// 根据传入tab id字符串，进行解析组装成路由对象返回
 export const getRouteById = id => {
   let res = {}
   if (id.includes('&')) {
@@ -151,20 +157,20 @@ export const getRouteById = id => {
     id = id.split(':')[0]
   }
   res.name = id
-  return res
+  return res  // 返回一个对象
 }
 
 export const getOpenArrByName = (name, routerList) => {
   let arr = []
-  routerList.some(item => {
-    if (item.name === name) {
+  routerList.some(item => {  // some遍历数组此时只要有一个满足条件，后面就不遍历了，节省时间，而for-each则会继续遍历
+    if (item.name === name) {  // 先遍历路由父节点进行匹配
       arr.push(item.name)
       return true
     }
-    if (item.children && item.children.length) {
-      let childArr = getOpenArrByName(name, item.children)
+    if (item.children && item.children.length) { // 若父没有匹配，则继续对子路由继续进行匹配
+      let childArr = getOpenArrByName(name, item.children)  // 递归调用
       if (childArr.length) {
-        arr = arr.concat(item.name, childArr)
+        arr = arr.concat(item.name, childArr)  // 将 父节点名称和子菜单进行合并返回
         return true
       }
     }
@@ -172,6 +178,7 @@ export const getOpenArrByName = (name, routerList) => {
   return arr
 }
 
+// 保存tablist到本地
 export const localSave = (name, value) => {
   localStorage.setItem(name, value)
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="side-menu-wrapper">
     <slot></slot>
+    <!--通过设置:active-name 为路由名称，从而在点击tab时动态切换关联的菜单项，使其高亮显示-->
+    <!--通过设置:open-names="openNames"，展开对应的菜单项-->
     <Menu ref="menu" :active-name="$route.name" :open-names="openNames" v-show="!collapsed" width="auto" theme="dark" @on-select="handleSelect">
       <template v-for="item in list">
         <re-submenu
@@ -52,22 +54,23 @@ export default {
   },
   computed: {
     ...mapState({
-      routers: state => state.router.routers
+      routers: state => state.router.routers  // 根据路由列表获取生成菜单
     }),
-    openNames () {
+    openNames () {  //设置需要展开的菜单项，返回数组
+      // 传入此时路由名称，以及所有路由名称
       return getOpenArrByName(this.$route.name, this.routers)
     }
   },
   watch: {
     openNames () {
-      this.$nextTick(() => {
-        this.$refs.menu.updateOpened()
+      this.$nextTick(() => {  // 在视图渲染完后再调用下面逻辑
+        this.$refs.menu.updateOpened()  // 调用菜单方法手动刷新
       })
     }
   },
   methods: {
     handleSelect (name) {
-      this.$router.push({
+      this.$router.push({   // 点击菜单右侧tab下内容显示对应的页面
         name
       })
     },
