@@ -12,8 +12,9 @@ const router = new Router({
 
 const HAS_LOGINED = false  // 设置为false 默认初始没有登录直接跳转到登录页
 
+// 路由守卫
 router.beforeEach((to, from, next) => {
-  to.meta && setTitle(to.meta.title)
+  to.meta && setTitle(to.meta.title)  // 改变浏览器标签页名称
   // if (to.name !== 'login') {
   //   if (HAS_LOGINED) next()
   //   else next({ name: 'login' })
@@ -21,8 +22,8 @@ router.beforeEach((to, from, next) => {
   //   if (HAS_LOGINED) next({ name: 'home' })
   //   else next()
   // }
-  const token = getToken()
-  if (token) {  // 一般认证是自动的需要放在路由守卫中处理，若已有token则直接进行后台认证，无需才进行输入用户名和密码的登录操作
+  const token = getToken()  // 获取token值
+  if (token) {  // 一般认证是自动的，需要放在路由守卫中处理，若已有token则直接进行后台认证，无需才进行输入用户名和密码的登录操作
     store.dispatch('authorization', token).then(() => {
       if (to.name === 'login') next({ name: 'home' })  // 如果此时访问的是登录页，则直接到主页
       else next()    // 否则直接到需要跳转的页面

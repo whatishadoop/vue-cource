@@ -35,7 +35,7 @@ const actions = {
   authorization ({ commit }, token) {   // 认证请求
     return new Promise((resolve, reject) => {
       authorization().then(res => {
-        if (parseInt(res.code) === 401) {
+        if (parseInt(res.code) === 401) {  // 401 Unauthorized（未授权）
           reject(new Error('token error'))
         } else {
           setToken(res.data.token)  // 每次路由守卫都会执行认证请求，成功后返回新的token进行保存用于延长其有效时间重新更新为60s

@@ -25,7 +25,7 @@ export default {
         password: this.password
       }).then(() => {
         console.log('success!!')
-        this.$router.push({
+        this.$router.push({   // 登录成功后进行页面跳转
           name: 'home'
         })
       }).catch(error => {
