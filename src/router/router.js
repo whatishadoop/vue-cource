@@ -1,5 +1,6 @@
 import Home from '@/views/Home.vue'
 import Layout from '@/views/layout.vue'
+// 下面是全量配置路由与后台传入的当前用户的权限交集进行匹配从而决定下面路由是否加入动态路由中，
 export const routerMap = [
   {
     path: '/home',
@@ -172,6 +173,7 @@ export const routerMap = [
   }
 ]
 
+// 一定要有的路由配置
 export const routes = [
   {
     path: '/login',

@@ -111,10 +111,10 @@ export const routeHasExist = (tabList, routeItem) => {
 
 const getKeyValueArr = obj => {
   let arr = []
-  Object.entries(obj).sort((a, b) => {  // Object.entries(obj)获取param,query对象的键值以数组形式此数组时无序的，进行排序后返回
+  Object.entries(obj).sort((a, b) => {  // Object.entries(obj)获取param,query对象的键值转换为数组形式，并对该数组按如下规则排序后返回，根据键名字符串排序
     return a[0] - b[0]
   }).forEach(([ _key, _val ]) => {
-    arr.push(_key, _val)
+    arr.push(_key, _val)  // 将键值对数组，转换为一维度数组返回
   })
   return arr
 }
@@ -123,7 +123,7 @@ const getKeyValueArr = obj => {
 export const getTabNameByRoute = route => {
   const { name, params, query } = route
   let res = name
-  // 若路由中传递的是params，按如下拼接
+  // 若路由中传递的是params，按如下字符串拼接
   if (params && Object.keys(params).length) res += ':' + getKeyValueArr(params).join('_')
   // 若路由中传递的是query，按如下拼接
   if (query && Object.keys(query).length) res += '&' + getKeyValueArr(query).join('_')
@@ -135,7 +135,7 @@ const getObjBySplitStr = (id, splitStr) => {
   let splitArr = id.split(splitStr)
   let str = splitArr[splitArr.length - 1]
   let keyValArr = str.split('_')
-  let res = {}
+  let res = {}  // 新建个对象用于组装路由对象信息
   let i = 0
   let len = keyValArr.length
   while (i < len) {
@@ -148,10 +148,12 @@ const getObjBySplitStr = (id, splitStr) => {
 // 根据传入tab id字符串，进行解析组装成路由对象返回
 export const getRouteById = id => {
   let res = {}
+  // 转换为query对象参数
   if (id.includes('&')) {
     res.query = getObjBySplitStr(id, '&')
     id = id.split('&')[0]
   }
+  // 转换为params对象参数
   if (id.includes(':')) {
     res.params = getObjBySplitStr(id, ':')
     id = id.split(':')[0]

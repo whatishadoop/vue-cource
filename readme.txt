@@ -12,7 +12,7 @@ watch: {
   },
 
 6.通过设置属性 closable 可以关闭某一项，仅在 type 为 card 时有效。<Tabs type="card" closable> ,这样可以
-  关闭tab标签，但tablist数组中视图元素并没有被删除，造成数据和视图不匹配了，本质应该删除对应数组中的数据，通过labelRender render函数实现tab标签，并在render标签上注册对应的事件方法
+  关闭tab标签只是删除tabdom节点，但tablist数组中视图元素并没有被删除，造成数据和视图不匹配了，本质应该删除对应数组中的数据，通过labelRender render函数实现tab标签，并在render标签上注册对应的删除事件方法
 
 7. 删除当前tab ,自动切换到前一个tab,或后一个tab
 8.保存tablist到本地浏览器中

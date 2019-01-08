@@ -39,24 +39,29 @@ router.beforeEach((to, from, next) => {
 
   const token = getToken()
   if (token) {
-    if (!store.state.router.hasGetRules) {
+    if (!store.state.router.hasGetRules) {  // 若没有获取权限规则已存在信息，则进行后台访问
       store.dispatch('authorization').then(rules => {
         store.dispatch('concatRoutes', rules).then(routers => {
-          router.addRoutes(clonedeep(routers))
+          router.addRoutes(clonedeep(routers))  // 动态添加路由，router.addRoutes是异步的
+          // next({ ...to, replace: true })重新载入刷新,hack方法 确保addRoutes已完成 ,set the replace: true 设置导航历史记录不丢失，Vue利用hack方式进行自刷新
           next({ ...to, replace: true })
         }).catch(() => {
+          // 执行失败跳转到登录页
           next({ name: 'login' })
         })
       }).catch(() => {
-        setToken('')
+        // 获取权限接口失败则跳转登录页
+        setToken('')  // 设置token为空字符串，避免无效的再次上面处理
         next({ name: 'login' })
       })
     } else {
+      // 权限信息已经动态加载到路由上，则直接跳转
       next()
     }
-  } else {
+  } else {// token 无效
+    // 若将要访问的登录页，则继续访问，先进行登录认证，获取token
     if (to.name === 'login') next()
-    else next({ name: 'login' })
+    else next({ name: 'login' })  // 若访问的不是登录页，则跳转到登录页，next可以重新设置访问路径
   }
 })
 

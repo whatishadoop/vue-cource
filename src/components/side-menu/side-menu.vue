@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     handleSelect (name) {
-      this.$router.push({   // 点击菜单右侧tab下内容显示对应的页面
+      this.$router.push({   // 点击菜单右侧tab下内容显示对应的页面,并会触发app.vue中路由监听事件，将点击的菜单项放入tablist中
         name
       })
     },

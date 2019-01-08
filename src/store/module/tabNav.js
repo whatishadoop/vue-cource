@@ -1,7 +1,8 @@
 import { routeHasExist, getRouteById, routeEqual, localSave, localRead } from '@/lib/util'
 
 const state = {
-  tabList: JSON.parse(localRead('tabList') || '[]')  // 先从本地读取，没有则直接返回空数组
+  // 先从本地读取json字符串，没有则直接返回空数组,tablist中存放着一个个路由对象
+  tabList: JSON.parse(localRead('tabList') || '[]')
 }
 
 // 定义需要进行本地存储的对象
@@ -19,14 +20,14 @@ const getTabListToLocal = tabList => {
 
 const mutations = {
   UPDATE_ROUTER (state, route) {
-    // 点击左侧菜单时，若tablist已经有对应的菜单项而且传递的参数也一样，则不再往里添加，直接显示已有的菜单项
+    // 点击左侧菜单时，若tablist已经有对应的菜单项而且传递的参数也一样，则不再往tabList里添加，直接显示已有的菜单项
     // 过滤掉登录页login
     if (!routeHasExist(state.tabList, route) && route.name !== 'login') state.tabList.push(route)
     // 本地进行存储，此时重新刷新页面，tab项依然存在
     localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
   },
   REMOVE_TAB (state, index) {
-    state.tabList.splice(index, 1)
+    state.tabList.splice(index, 1)  // 从数组中索引当前位置开始移除一个，移除完后重新保存tablist
     localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
   }
 }
@@ -41,12 +42,12 @@ const actions = {
       // 找到路由对象后将其从tablist中删除
       let len = state.tabList.length
       let nextRoute = {}
-      // 此处判断该标签右侧还有标签，则跳转到右侧下一个标签tab
+      // 此处判断当前页面的路由对象和传入的tabid解析出的对象是否相等，若相等才进行如下处理返回删除后下个打开的tab对象信息，否则直接跳转首页
       if (routeEqual($route, state.tabList[index])) {
         if (index < len - 1) nextRoute = state.tabList[index + 1]  // 若是从中间关闭一个tab，则打开它的后一个
         else nextRoute = state.tabList[index - 1]  // 若是关闭最后一个，则选中前一个tab
       }
-      const { name, params, query } = nextRoute || { name: 'home_index' }  // 若是nextRoute有值则使用它进行路由跳转，若没值则默认使用home_index跳转
+      const { name, params, query } = nextRoute || { name: 'home_index' }  // 若是nextRoute有值则使用它进行路由跳转，若没值则默认跳转到home_index页面
       // 提交删除
       commit('REMOVE_TAB', index)
       resolve({
