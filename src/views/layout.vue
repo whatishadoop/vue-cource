@@ -84,7 +84,6 @@ export default {
         return (
           <div>
             <span>{item.meta.title}</span>
-        {console.log(this)}
             <icon nativeOn-click={this.handleTabRemove.bind(this, getTabNameByRoute(item))} type="md-close-circle" style="line-height:10px;"></icon>
           </div>
         )
@@ -101,7 +100,7 @@ export default {
     background: #fff;
     box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
     padding: 0 23px;
-    .trigger-icon{
+    .trigger-icon{  /* 移动 + 旋转 */
       cursor: pointer;
       transition: transform .3s ease;
       &.rotate{

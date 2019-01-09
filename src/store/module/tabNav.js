@@ -1,7 +1,7 @@
 import { routeHasExist, getRouteById, routeEqual, localSave, localRead } from '@/lib/util'
 
 const state = {
-  // 先从本地读取json字符串，没有则直接返回空数组,tablist中存放着一个个路由对象
+  // 浏览器刷新之后tabList信息会丢失,先从本地读取json字符串，没有则直接返回空数组,tablist中存放着一个个路由对象
   tabList: JSON.parse(localRead('tabList') || '[]')
 }
 

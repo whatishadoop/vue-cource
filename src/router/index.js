@@ -4,6 +4,7 @@ import { routes } from './router'
 import store from '@/store'
 import { setTitle, setToken, getToken } from '@/lib/util'
 import clonedeep from 'clonedeep'
+import tabNav from "../store/module/tabNav";
 
 Vue.use(Router)
 
@@ -39,12 +40,18 @@ router.beforeEach((to, from, next) => {
 
   const token = getToken()
   if (token) {
+    console.log(store.state.router.hasGetRules);
     if (!store.state.router.hasGetRules) {  // 若没有获取权限规则已存在信息，则进行后台访问
       store.dispatch('authorization').then(rules => {
         store.dispatch('concatRoutes', rules).then(routers => {
           router.addRoutes(clonedeep(routers))  // 动态添加路由，router.addRoutes是异步的
           // next({ ...to, replace: true })重新载入刷新,hack方法 确保addRoutes已完成 ,set the replace: true 设置导航历史记录不丢失，Vue利用hack方式进行自刷新
-          next({ ...to, replace: true })
+          let length = store.state.tabNav.tabList.length;
+          if(0 === length){  // 初次登录成功后默认登录首页
+            next({ name: 'home_index', replace: true })
+          }else{
+            next({ ...to, replace: true })  //  已经登录，刷新后继续登录当前tab
+          }
         }).catch(() => {
           // 执行失败跳转到登录页
           next({ name: 'login' })
